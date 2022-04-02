@@ -32,14 +32,19 @@ defmodule OptimizeAliasesTest do
     assert String.trim(expected) == refactor(input)
   end
 
-  test "simple" do
+  test "consolidate aliases" do
     input = ~S"""
-    alias Foo.Goo.{Sam, Dad}
+    alias Foo.Goo.Sam
+    alias Foo.Moon
+    alias Foo.Goo.Dad
+    """
+
+    expected = ~S"""
+    alias Foo.Goo.{Dad, Sam}
     alias Foo.Moon
     """
 
-    # assert expected == refactor(input)
-    assert input == refactor(input)
+    assert expected == refactor(input)
   end
 
   # {

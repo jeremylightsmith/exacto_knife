@@ -4,22 +4,28 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
   def optimize_aliases(quoted) do
     Z.zip(quoted)
     |> Z.traverse(&sort_aliases/1)
+    |> Z.top()
+    |> Z.traverse(&consolidate_aliases/1)
     |> Z.root()
   end
 
   defp sort_aliases({{:alias, _, _} = node, _} = zipper) do
-    case zipper |> Z.left() do
-      {previous, _} ->
-        if alias?(previous) && node_to_string(node) < node_to_string(previous) do
-          swap_with_previous_node(zipper)
-        else
-          zipper
-        end
-      nil -> zipper
+    previous = zipper |> Z.left() |> safe_node()
+
+    if previous && alias?(previous) && node_to_string(node) < node_to_string(previous) do
+      swap_with_previous_node(zipper)
+    else
+      zipper
     end
   end
 
   defp sort_aliases(zipper), do: zipper
+
+  defp consolidate_aliases({{:alias, _, children} = node, _} = zipper) do
+    zipper
+  end
+
+  defp consolidate_aliases(zipper), do: zipper
 
   defp swap_with_previous_node(zipper) do
     {previous, _} = zipper |> Z.left()
@@ -29,6 +35,9 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
     |> Z.left()
     |> Z.remove()
   end
+
+  defp safe_node({n, _}), do: n
+  defp safe_node(nil), do: nil
 
   defp alias?({:alias, _, _}), do: true
   defp alias?(_), do: false
