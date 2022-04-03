@@ -3,12 +3,13 @@ defmodule ExFactor.MixProject do
 
   def project do
     [
-      app: :exacto_knife,
+      app: :ex_factor,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
-      deps: deps()
+      deps: deps(),
+      escript: [main_module: ExFactor.CLI]
     ]
   end
 

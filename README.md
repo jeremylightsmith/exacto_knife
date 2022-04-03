@@ -25,6 +25,23 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/ex_factor>.
 
+## Build
+
+To recreate a runnable exec ppl can use to do the refactors:
+
+`MIX_ENV=production mix escript.build`
+
+## Using
+
+After building, you can use ex_factor by calling:
+```
+./ex_factor [REFACTORING] [PATH]
+```
+
+e.g.
+```
+./ex_factor consolidate_aliases ../my/path/to/an/elixir/file.ex
+```
 
 ## Links
 
