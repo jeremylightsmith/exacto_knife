@@ -1,3 +1,8 @@
+0.1.1
+
+* bugfixes
+* a _little_ more documentation
+
 0.1.0
 
 * added consolidate aliases
