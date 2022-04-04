@@ -1,8 +1,8 @@
 defmodule ExactoKnife.Refactorings.ZipperExtensionsTest do
   use ExactoKnife.TestCase, async: true
 
-  alias Sourceror.Zipper, as: Z
   alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
+  alias Sourceror.Zipper, as: Z
 
   describe "#find_back/2" do
     test "finds a thing" do

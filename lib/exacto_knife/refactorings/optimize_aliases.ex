@@ -3,9 +3,9 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
   Refactorings working with aliases
   """
 
-  alias Sourceror.Zipper, as: Z
-  alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
   alias ExactoKnife.Refactorings.Node
+  alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
+  alias Sourceror.Zipper, as: Z
 
   def sort_aliases({{:alias, _, _} = node, _} = zipper) do
     previous = zipper |> Z.left() |> Ze.safe_node()
