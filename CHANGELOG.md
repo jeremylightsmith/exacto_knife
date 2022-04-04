@@ -2,6 +2,7 @@
 
 * bugfixes
 * a _little_ more documentation
+* use project formatting
 
 0.1.0
 

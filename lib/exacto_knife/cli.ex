@@ -34,12 +34,16 @@ defmodule ExactoKnife.CLI do
     end
   end
 
+  defp formatter_opts_for(file: file) do
+    Mix.Tasks.Format.formatter_for_file(file) |> elem(1)
+  end
+
   defp update_file(path, fun) do
     new_content =
       File.read!(path)
       |> Sourceror.parse_string!()
       |> fun.()
-      |> Sourceror.to_string()
+      |> Sourceror.to_string(formatter_opts_for(file: path))
 
     File.write!(path, new_content)
   end
