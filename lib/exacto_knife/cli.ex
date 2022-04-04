@@ -4,6 +4,7 @@ defmodule ExactoKnife.CLI do
   """
 
   alias ExactoKnife.Refactorings
+  alias Mix.Tasks.Format
 
   def main(args \\ []) do
     case parse_args(args) do
@@ -35,7 +36,7 @@ defmodule ExactoKnife.CLI do
   end
 
   defp formatter_opts_for(file: file) do
-    Mix.Tasks.Format.formatter_for_file(file) |> elem(1)
+    Format.formatter_for_file(file) |> elem(1)
   end
 
   defp update_file(path, fun) do
