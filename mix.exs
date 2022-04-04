@@ -26,7 +26,7 @@ defmodule ExFactor.MixProject do
   defp deps do
     [
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:sourceror, "~> 0.10"}
+      {:sourceror, "~> 0.11"}
     ]
   end
 end
