@@ -1,4 +1,5 @@
 defmodule ExactoKnife.Refactorings.NodeTest do
+  @moduledoc false
   use ExactoKnife.TestCase, async: true
 
   alias ExactoKnife.Refactorings.Node

@@ -1,4 +1,5 @@
 defmodule NodeFactoryTest do
+  @moduledoc false
   use ExactoKnife.TestCase, async: true
 
   describe "build/n" do

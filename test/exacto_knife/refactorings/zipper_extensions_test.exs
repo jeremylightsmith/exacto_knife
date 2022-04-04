@@ -1,4 +1,5 @@
 defmodule ExactoKnife.Refactorings.ZipperExtensionsTest do
+  @moduledoc false
   use ExactoKnife.TestCase, async: true
 
   alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze

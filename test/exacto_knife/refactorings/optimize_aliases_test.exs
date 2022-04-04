@@ -1,4 +1,5 @@
 defmodule ExactoKnife.Refactorings.OptimizeAliasesTest do
+  @moduledoc false
   use ExactoKnife.TestCase, async: true
 
   alias ExactoKnife.Refactorings
