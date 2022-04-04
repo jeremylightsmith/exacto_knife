@@ -88,7 +88,21 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
       assert String.trim(expected) == refactor(:consolidate_aliases, input)
     end
 
-    test "should expand aliases when only one"
+    test "should expand aliases when only one" do
+      input = ~S"""
+      defmodule Foo do
+        alias Foo.Goo.{Gab}
+      end
+      """
+
+      expected = ~S"""
+      defmodule Foo do
+        alias Foo.Goo.Gab
+      end
+      """
+
+      assert String.trim(expected) == refactor(:consolidate_aliases, input)
+    end
   end
 
   describe "expand_aliases/1" do

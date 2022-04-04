@@ -19,33 +19,46 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
   def consolidate_aliases({{:alias, _, _} = node, _} = zipper) do
     previous = zipper |> Z.left() |> Ze.safe_node()
 
-    if previous && alias?(previous) &&
-         node_to_alias_parent(node) == node_to_alias_parent(previous) do
-      cond do
-        has_qualified_tuple?(node) ->
-          names = get_alias_short_names_from(previous)
+    cond do
+      previous && alias?(previous) &&
+          node_to_alias_parent(node) == node_to_alias_parent(previous) ->
+        combine_aliases(zipper, node, previous)
 
-          zipper
-          |> add_to_qualified_tuple(names)
-          |> Z.left()
-          |> Z.remove()
+      has_qualified_tuple?(node) && length(get_alias_short_names_from(node)) == 1 ->
+        expand_aliases(zipper)
 
-        has_qualified_tuple?(previous) ->
-          names = get_alias_short_names_from(node)
+      true ->
+        zipper
+    end
+  end
 
-          zipper
-          |> Z.left()
-          |> add_to_qualified_tuple(names)
-          |> Z.right()
-          |> Z.remove()
+  defp combine_aliases(zipper, node, previous) do
+    cond do
+      has_qualified_tuple?(node) ->
+        names = get_alias_short_names_from(previous)
 
-        true ->
-          zipper
-          |> change_alias_to_qualified_tuple()
-          |> Z.left()
-      end
-    else
-      zipper
+        zipper
+        |> add_to_qualified_tuple(names)
+        |> Z.left()
+        |> Z.remove()
+
+      has_qualified_tuple?(previous) ->
+        names = get_alias_short_names_from(node)
+
+        zipper
+        |> Z.left()
+        |> add_to_qualified_tuple(names)
+        |> Z.right()
+        |> Z.remove()
+
+      true ->
+        names = get_alias_short_names_from(previous)
+
+        zipper
+        |> change_alias_to_qualified_tuple()
+        |> add_to_qualified_tuple(names)
+        |> Z.left()
+        |> Z.remove()
     end
   end
 
