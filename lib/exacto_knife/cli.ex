@@ -1,4 +1,8 @@
 defmodule ExactoKnife.CLI do
+  @moduledoc """
+  Command line interface support
+  """
+
   alias ExactoKnife.Refactorings
 
   def main(args \\ []) do

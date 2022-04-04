@@ -1,4 +1,10 @@
 defmodule ExactoKnife.Refactorings do
+  @moduledoc """
+  These are the top level refactorings that exacto knife publishes.
+
+  These functions take and return an AST node parsed w/ Sourceror.
+  """
+
   alias ExactoKnife.Refactorings.OptimizeAliases
   alias Sourceror.Zipper, as: Z
 

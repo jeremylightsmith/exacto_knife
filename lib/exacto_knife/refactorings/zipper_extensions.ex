@@ -1,4 +1,8 @@
 defmodule ExactoKnife.Refactorings.ZipperExtensions do
+  @moduledoc """
+  Extensions to sourceror's zipper functions.
+  """
+
   alias Sourceror.Zipper, as: Z
 
   defdelegate zip(quoted), to: Z

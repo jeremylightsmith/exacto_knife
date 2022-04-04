@@ -1,4 +1,6 @@
 defmodule ExactoKnife.TestCase do
+  @moduledoc false
+
   use ExUnit.CaseTemplate
 
   using do

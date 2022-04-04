@@ -1,4 +1,8 @@
 defmodule ExactoKnife.NodeFactory do
+  @moduledoc """
+  Factory methods for creating nodes in tests
+  """
+
   def build(:__aliases__, names) do
     {:__aliases__, [], names}
   end

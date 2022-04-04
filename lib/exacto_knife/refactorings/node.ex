@@ -1,4 +1,8 @@
 defmodule ExactoKnife.Refactorings.Node do
+  @moduledoc """
+  Helpers when dealing with AST nodes and node traversal
+  """
+
   alias ExactoKnife.Refactorings.Node
 
   def get_in(tuple, [index | rest]) when is_tuple(tuple) and is_integer(index) do

@@ -1,4 +1,8 @@
 defmodule ExactoKnife.Refactorings.OptimizeAliases do
+  @moduledoc """
+  Refactorings working with aliases
+  """
+
   alias Sourceror.Zipper, as: Z
   alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
   alias ExactoKnife.Refactorings.Node
@@ -176,14 +180,12 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
 
   defp node_to_string(children) when is_list(children) do
     children
-    |> Enum.map(&node_to_string/1)
-    |> Enum.join(".")
+    |> Enum.map_join(".", &node_to_string/1)
   end
 
   defp node_to_string({:__aliases__, _, children}) do
     children
-    |> Enum.map(&Atom.to_string/1)
-    |> Enum.join(".")
+    |> Enum.map_join(".", &Atom.to_string/1)
   end
 
   defp node_to_string({{:., _, root}, _, children}) do
