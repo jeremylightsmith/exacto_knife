@@ -8,7 +8,7 @@ defmodule ExactoKnife.Refactorings.NodeTest do
       tuple = {1, {2, {3, 4}}, [5, {6, 7}]}
 
       assert 1 == Node.get_in(tuple, [0])
-      assert {3,4} == Node.get_in(tuple, [1, 1])
+      assert {3, 4} == Node.get_in(tuple, [1, 1])
       assert 3 == Node.get_in(tuple, [1, 1, 0])
       assert 5 == Node.get_in(tuple, [2, 0])
       assert 7 == Node.get_in(tuple, [2, 1, 1])

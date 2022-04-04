@@ -31,7 +31,7 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
         zipper
 
       # we can't (shouldn't?) handle complex aliases (that have as:)
-      complex_alias?(node) || complex_alias?(node) ->
+      complex_alias?(node) || complex_alias?(previous) ->
         zipper
 
       # this and previous alias share a root
@@ -164,7 +164,8 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
   defp has_qualified_tuple?({:alias, _, [{{:., _, _}, _, _}]}), do: true
   defp has_qualified_tuple?({:alias, _, _}), do: false
 
-  defp debug({node, _} = zipper, label: label) do
+  def debug({node, _} = zipper, label: label) do
+    # credo:disable-for-next-line
     IO.inspect(node_to_string(node), label: label)
     zipper
   end
