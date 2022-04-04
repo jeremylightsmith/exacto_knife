@@ -1,6 +1,6 @@
 # ExactoKnife
 
-![Github Actions](https://github.com/jeremylightsmith/exacto_knife/.github/workflows/elixir.yml/badge.svg?branch=main)
+![Github Actions](https://github.com/jeremylightsmith/exacto_knife/actions/workflows/elixir.yml/badge.svg?branch=main)
 [![Module Version](https://img.shields.io/hexpm/v/exacto_knife.svg)](https://hex.pm/packages/exacto_knife)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/exacto_knife/)
 [![Total Download](https://img.shields.io/hexpm/dt/exacto_knife.svg)](https://hex.pm/packages/exacto_knife)
