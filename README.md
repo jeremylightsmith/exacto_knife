@@ -1,5 +1,12 @@
 # ExactoKnife
 
+[![Build Status](https://github.com/jeremylightsmith/exacto_knife/.github/workflows/ci.yml/badge.svg)](https://github.com/jeremylightsmith/exacto_knife/actions)
+[![Module Version](https://img.shields.io/hexpm/v/exacto_knife.svg)](https://hex.pm/packages/exacto_knife)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/exacto_knife/)
+[![Total Download](https://img.shields.io/hexpm/dt/exacto_knife.svg)](https://hex.pm/packages/exacto_knife)
+[![License](https://img.shields.io/hexpm/l/exacto_knife.svg)](https://github.com/jeremylightsmith/exacto_knife/blob/master/LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/jeremylightsmith/exacto_knife.svg)](https://github.com/jeremylightsmith/exacto_knife/commits/master)
+
 Refactoring tools for elixir!
 
 ## Refactorings
