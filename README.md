@@ -4,9 +4,11 @@ Refactoring tools for elixir!
 
 ## Refactorings
 
-# sort aliases
-# expand aliases
-# consolidate aliases
+### Sort aliases
+### Expand aliases
+### Consolidate aliases
+
+Many more to come...
 
 ## Installation
 
@@ -42,6 +44,14 @@ e.g.
 ```
 ./ex_factor consolidate_aliases ../my/path/to/an/elixir/file.ex
 ```
+
+## Contributing
+
+* Clone the repo
+* Write a failing test for your change
+* Make sure all tests pass
+* Submit a PR
+* We all win!!!
 
 ## Links
 
