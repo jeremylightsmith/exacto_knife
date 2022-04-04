@@ -5,8 +5,23 @@ Refactoring tools for elixir!
 ## Refactorings
 
 ### Sort aliases
+
+```
+mix refactor sort_aliases [FILE]
+```
+
 ### Expand aliases
+
+```
+mix refactor expand_aliases [FILE]
+```
+
 ### Consolidate aliases
+
+```
+mix refactor consolidate_aliases [FILE]
+```
+
 
 Many more to come...
 
@@ -26,24 +41,6 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/exacto_knife>.
-
-## Build
-
-To recreate a runnable exec ppl can use to do the refactors:
-
-`MIX_ENV=production mix escript.build`
-
-## Using
-
-After building, you can use exacto_knife by calling:
-```
-./exacto_knife [REFACTORING] [PATH]
-```
-
-e.g.
-```
-./exacto_knife consolidate_aliases ../my/path/to/an/elixir/file.ex
-```
 
 ## Contributing
 
