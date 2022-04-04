@@ -1,4 +1,4 @@
-defmodule ExFactor.NodeFactory do
+defmodule ExactoKnife.NodeFactory do
   def build(:__aliases__, names) do
     {:__aliases__, [], names}
   end

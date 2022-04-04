@@ -1,12 +1,12 @@
-defmodule ExFactor.MixProject do
+defmodule ExactoKnife.MixProject do
   use Mix.Project
 
-  @source_url "https://github.com/jeremylightsmith/ex_factor"
+  @source_url "https://github.com/jeremylightsmith/exacto_knife"
   @version "0.1.0"
 
   def project do
     [
-      app: :ex_factor,
+      app: :exacto_knife,
       description: "Refactoring for Elixir",
       version: @version,
       elixir: "~> 1.13",
@@ -14,12 +14,12 @@ defmodule ExFactor.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       docs: docs(),
-      escript: [main_module: ExFactor.CLI],
+      escript: [main_module: ExactoKnife.CLI],
       package: [
         maintainers: ["Jeremy Lightsmith"],
         licenses: ["MIT"],
         links: %{
-          "Changelog" => "https://hexdocs.pm/ex_factor/changelog.html",
+          "Changelog" => "https://hexdocs.pm/exacto_knife/changelog.html",
           "GitHub" => @source_url
         },
         files: ~w(LICENSE README.md CHANGELOG.md lib mix.exs)

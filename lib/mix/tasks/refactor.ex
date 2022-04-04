@@ -1,7 +1,7 @@
 defmodule Mix.Tasks.Refactor do
   @moduledoc "The refactor mix task: `mix help refactor`"
   use Mix.Task
-  alias ExFactor.CLI
+  alias ExactoKnife.CLI
 
   @shortdoc "Perform refactorings on your code"
   def run(args) do

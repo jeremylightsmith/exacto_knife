@@ -1,5 +1,5 @@
 defmodule NodeFactoryTest do
-  use ExFactor.TestCase, async: true
+  use ExactoKnife.TestCase, async: true
 
   describe "build/n" do
     test "should build aliases" do

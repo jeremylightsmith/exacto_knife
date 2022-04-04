@@ -1,7 +1,7 @@
-defmodule ExFactor.Refactorings.NodeTest do
-  use ExFactor.TestCase, async: true
+defmodule ExactoKnife.Refactorings.NodeTest do
+  use ExactoKnife.TestCase, async: true
 
-  alias ExFactor.Refactorings.Node
+  alias ExactoKnife.Refactorings.Node
 
   describe "#get_in/2" do
     test "works" do

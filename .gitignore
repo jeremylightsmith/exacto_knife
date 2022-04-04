@@ -24,4 +24,4 @@ exacto_knife-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
-/ex_factor
+/exacto_knife

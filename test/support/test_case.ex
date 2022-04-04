@@ -1,9 +1,9 @@
-defmodule ExFactor.TestCase do
+defmodule ExactoKnife.TestCase do
   use ExUnit.CaseTemplate
 
   using do
     quote do
-      import ExFactor.NodeFactory
+      import ExactoKnife.NodeFactory
     end
   end
 end

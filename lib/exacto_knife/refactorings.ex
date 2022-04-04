@@ -1,5 +1,5 @@
-defmodule ExFactor.Refactorings do
-  alias ExFactor.Refactorings.OptimizeAliases
+defmodule ExactoKnife.Refactorings do
+  alias ExactoKnife.Refactorings.OptimizeAliases
   alias Sourceror.Zipper, as: Z
 
   # these methods all take a quoted source and return the same

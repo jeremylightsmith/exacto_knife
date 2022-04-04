@@ -1,4 +1,4 @@
-# ExFactor
+# ExactoKnife
 
 Refactoring tools for elixir!
 
@@ -13,19 +13,19 @@ Many more to come...
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ex_factor` to your list of dependencies in `mix.exs`:
+by adding `exacto_knife` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:ex_factor, "~> 0.1.0"}
+    {:exacto_knife, "~> 0.1.0"}
   ]
 end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/ex_factor>.
+be found at <https://hexdocs.pm/exacto_knife>.
 
 ## Build
 
@@ -35,14 +35,14 @@ To recreate a runnable exec ppl can use to do the refactors:
 
 ## Using
 
-After building, you can use ex_factor by calling:
+After building, you can use exacto_knife by calling:
 ```
-./ex_factor [REFACTORING] [PATH]
+./exacto_knife [REFACTORING] [PATH]
 ```
 
 e.g.
 ```
-./ex_factor consolidate_aliases ../my/path/to/an/elixir/file.ex
+./exacto_knife consolidate_aliases ../my/path/to/an/elixir/file.ex
 ```
 
 ## Contributing

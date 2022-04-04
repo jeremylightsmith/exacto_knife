@@ -1,5 +1,5 @@
-defmodule ExFactor.Refactorings.Node do
-  alias ExFactor.Refactorings.Node
+defmodule ExactoKnife.Refactorings.Node do
+  alias ExactoKnife.Refactorings.Node
 
   def get_in(tuple, [index | rest]) when is_tuple(tuple) and is_integer(index) do
     tuple

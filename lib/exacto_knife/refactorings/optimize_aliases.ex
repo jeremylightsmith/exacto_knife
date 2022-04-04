@@ -1,7 +1,7 @@
-defmodule ExFactor.Refactorings.OptimizeAliases do
+defmodule ExactoKnife.Refactorings.OptimizeAliases do
   alias Sourceror.Zipper, as: Z
-  alias ExFactor.Refactorings.ZipperExtensions, as: Ze
-  alias ExFactor.Refactorings.Node
+  alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
+  alias ExactoKnife.Refactorings.Node
 
   def sort_aliases({{:alias, _, _} = node, _} = zipper) do
     previous = zipper |> Z.left() |> Ze.safe_node()

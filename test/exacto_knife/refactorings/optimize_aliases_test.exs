@@ -1,8 +1,8 @@
-defmodule ExFactor.Refactorings.OptimizeAliasesTest do
-  use ExFactor.TestCase, async: true
+defmodule ExactoKnife.Refactorings.OptimizeAliasesTest do
+  use ExactoKnife.TestCase, async: true
 
-  alias ExFactor.Refactorings
-  alias ExFactor.Refactorings.OptimizeAliases
+  alias ExactoKnife.Refactorings
+  alias ExactoKnife.Refactorings.OptimizeAliases
   alias Sourceror.Zipper, as: Z
 
   def refactor(name, source) do
@@ -132,13 +132,13 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
     test "complex aliases" do
       input = ~S"""
       alias Sourceror.Zipper, as: Z
-      alias ExFactor.Refactorings.ZipperExtensions, as: Ze
-      alias ExFactor.Refactorings.Node
+      alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
+      alias ExactoKnife.Refactorings.Node
       """
 
       expected = ~S"""
-      alias ExFactor.Refactorings.Node
-      alias ExFactor.Refactorings.ZipperExtensions, as: Ze
+      alias ExactoKnife.Refactorings.Node
+      alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
       alias Sourceror.Zipper, as: Z
       """
 
@@ -263,9 +263,9 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
       assert [:Sourceror] ==
                OptimizeAliases.node_to_alias_parent(build("alias Sourceror.Zipper, as: Z"))
 
-      assert [:ExFactor, :Refactorings] ==
+      assert [:ExactoKnife, :Refactorings] ==
                OptimizeAliases.node_to_alias_parent(
-                 build("alias ExFactor.Refactorings.{ZipperExtensions}, as: Ze")
+                 build("alias ExactoKnife.Refactorings.{ZipperExtensions}, as: Ze")
                )
     end
   end

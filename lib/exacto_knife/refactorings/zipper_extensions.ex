@@ -1,4 +1,4 @@
-defmodule ExFactor.Refactorings.ZipperExtensions do
+defmodule ExactoKnife.Refactorings.ZipperExtensions do
   alias Sourceror.Zipper, as: Z
 
   defdelegate zip(quoted), to: Z

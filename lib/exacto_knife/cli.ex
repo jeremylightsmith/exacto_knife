@@ -1,14 +1,14 @@
-defmodule ExFactor.CLI do
-  alias ExFactor.Refactorings
+defmodule ExactoKnife.CLI do
+  alias ExactoKnife.Refactorings
 
   def main(args \\ []) do
     case parse_args(args) do
       :help ->
         IO.puts("""
-        ExFactor Usage:
-          ex_factor [REFACTOR] [FILE]
+        ExactoKnife Usage:
+          exacto_knife [REFACTOR] [FILE]
 
-          e.g. ex_factor consolidate_aliases lib/project/stuff.ex
+          e.g. exacto_knife consolidate_aliases lib/project/stuff.ex
         """)
 
       {_, [name, path]} ->
