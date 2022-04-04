@@ -6,6 +6,8 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
   def sort_aliases({{:alias, _, _} = node, _} = zipper) do
     previous = zipper |> Z.left() |> Ze.safe_node()
 
+    zipper = if has_qualified_tuple?(node), do: sort_alias_segments(zipper), else: zipper
+
     if previous && alias?(previous) && node_to_string(node) < node_to_string(previous) do
       swap_with_previous_node(zipper)
     else
@@ -31,6 +33,8 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
         zipper
     end
   end
+
+  def consolidate_aliases(zipper), do: zipper
 
   defp combine_aliases(zipper, node, previous) do
     cond do
@@ -62,8 +66,6 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
     end
   end
 
-  def consolidate_aliases(zipper), do: zipper
-
   # borrowed from sourceror example :)
   def expand_aliases(
         {{:alias, alias_meta, [{{:., _, [left, :{}]}, call_meta, right}]}, _metadata} = zipper
@@ -91,6 +93,12 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
 
   def get_alias_short_names_from({:alias, _, [{:__aliases__, _, names}]}) do
     [List.last(names)]
+  end
+
+  def sort_alias_segments(zipper) do
+    segments = zipper |> Z.node() |> Node.get_in([2, 0, 2])
+    # this happens to do it
+    add_to_qualified_tuple(zipper, [])
   end
 
   def add_to_qualified_tuple({{:alias, _, _} = node, _} = zipper, names) do

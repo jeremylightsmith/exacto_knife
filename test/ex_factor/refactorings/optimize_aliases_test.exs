@@ -50,6 +50,31 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
 
       assert String.trim(expected) == refactor(:sort_aliases, input)
     end
+
+    test "should sort alias tuples" do
+      input = ~S"""
+      alias Charlie.{
+        Foo,
+        Bar,
+        Baz,
+        Back
+      }
+      alias Bravo
+      """
+
+      expected = ~S"""
+      alias Bravo
+
+      alias Charlie.{
+        Back,
+        Bar,
+        Baz,
+        Foo
+      }
+      """
+
+      assert String.trim(expected) == refactor(:sort_aliases, input)
+    end
   end
 
   describe "consolidate_aliases/1" do
