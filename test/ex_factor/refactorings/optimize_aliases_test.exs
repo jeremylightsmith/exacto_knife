@@ -128,6 +128,22 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
 
       assert String.trim(expected) == refactor(:consolidate_aliases, input)
     end
+
+    test "complex aliases" do
+      input = ~S"""
+      alias Sourceror.Zipper, as: Z
+      alias ExFactor.Refactorings.ZipperExtensions, as: Ze
+      alias ExFactor.Refactorings.Node
+      """
+
+      expected = ~S"""
+      alias ExFactor.Refactorings.Node
+      alias ExFactor.Refactorings.ZipperExtensions, as: Ze
+      alias Sourceror.Zipper, as: Z
+      """
+
+      assert String.trim(expected) == refactor(:consolidate_aliases, input)
+    end
   end
 
   describe "expand_aliases/1" do
@@ -241,6 +257,16 @@ defmodule ExFactor.Refactorings.OptimizeAliasesTest do
     test "from tuple" do
       assert [:Foo, :Bar] ==
                OptimizeAliases.node_to_alias_parent(build("alias Foo.Bar.{Baz,Bam}"))
+    end
+
+    test "from alias w/ as:" do
+      assert [:Sourceror] ==
+               OptimizeAliases.node_to_alias_parent(build("alias Sourceror.Zipper, as: Z"))
+
+      assert [:ExFactor, :Refactorings] ==
+               OptimizeAliases.node_to_alias_parent(
+                 build("alias ExFactor.Refactorings.{ZipperExtensions}, as: Ze")
+               )
     end
   end
 

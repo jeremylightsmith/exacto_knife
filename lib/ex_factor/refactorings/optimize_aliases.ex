@@ -22,12 +22,21 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
     previous = zipper |> Z.left() |> Ze.safe_node()
 
     cond do
-      previous && alias?(previous) &&
-          node_to_alias_parent(node) == node_to_alias_parent(previous) ->
-        combine_aliases(zipper, node, previous)
-
+      # we should expand an alias with only one segment, e.g. alias Foo.{Bar}
       has_qualified_tuple?(node) && length(get_alias_short_names_from(node)) == 1 ->
         expand_aliases(zipper)
+
+      # no previous alias
+      !previous || !alias?(previous) ->
+        zipper
+
+      # we can't (shouldn't?) handle complex aliases (that have as:)
+      complex_alias?(node) || complex_alias?(node) ->
+        zipper
+
+      # this and previous alias share a root
+      node_to_alias_parent(node) == node_to_alias_parent(previous) ->
+        combine_aliases(zipper, node, previous)
 
       true ->
         zipper
@@ -96,9 +105,14 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
   end
 
   def sort_alias_segments(zipper) do
-    segments = zipper |> Z.node() |> Node.get_in([2, 0, 2])
-    # this happens to do it
-    add_to_qualified_tuple(zipper, [])
+    segments = zipper |> Z.node() |> get_alias_short_names_from()
+
+    if segments != Enum.sort(segments) do
+      # this happens to do it
+      add_to_qualified_tuple(zipper, [])
+    else
+      zipper
+    end
   end
 
   def add_to_qualified_tuple({{:alias, _, _} = node, _} = zipper, names) do
@@ -116,7 +130,7 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
   end
 
   def change_alias_to_qualified_tuple(
-        {{:alias, _, [{:__aliases__, aliases_meta, names}]} = node, _} = zipper
+        {{:alias, _, [{:__aliases__, aliases_meta, names} | _]} = node, _} = zipper
       ) do
     {last, root} = names |> List.pop_at(-1)
 
@@ -143,6 +157,9 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
 
   defp alias?({:alias, _, _}), do: true
   defp alias?(_), do: false
+
+  defp complex_alias?({:alias, _, [_, _ | _]}), do: true
+  defp complex_alias?({:alias, _, _}), do: false
 
   defp has_qualified_tuple?({:alias, _, [{{:., _, _}, _, _}]}), do: true
   defp has_qualified_tuple?({:alias, _, _}), do: false
@@ -186,16 +203,12 @@ defmodule ExFactor.Refactorings.OptimizeAliases do
   # e.g.
   #   alias Foo.Bar.Baz -> [:Foo, :Bar]
   #   alias Foo.Bar.{Baz,Boop} -> [:Foo, :Bar]
-  def node_to_alias_parent({:alias, _, [{{:., _, [{:__aliases__, _, names}, _]}, _, _}]}) do
-    # IO.inspect(node, label: "node_to_alias_parent(node)", pretty: true, limit: :infinity)
+  def node_to_alias_parent({:alias, _, [{{:., _, [{:__aliases__, _, names}, _]}, _, _} | _]}) do
     names
-    # |> IO.inspect(label: "qualified tuple")
   end
 
-  def node_to_alias_parent({:alias, _, [{:__aliases__, _, names}]}) do
-    # IO.inspect(node, label: "node_to_alias_parent(node)", pretty: true, limit: :infinity)
+  def node_to_alias_parent({:alias, _, [{:__aliases__, _, names} | _]}) do
     Enum.drop(names, -1)
-    # |> IO.inspect(label: "names")
   end
 
   defp segments_to_alias(base_segments, {_, meta, segments}) do
