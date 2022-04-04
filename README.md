@@ -4,26 +4,53 @@ Refactoring tools for elixir!
 
 ## Refactorings
 
-### Sort aliases
+### Refactoring: Sort aliases
 
 ```
 mix refactor sort_aliases [FILE]
 ```
 
-### Expand aliases
+Sort all aliases in a file:
+
+```elixir
+alias Alpha
+alias Alpha.Bravo
+alias Alpha.Charlie
+alias Delta
+```
+
+----
+
+### Refactoring: Expand aliases
 
 ```
 mix refactor expand_aliases [FILE]
 ```
 
-### Consolidate aliases
+Expand out all aliases in a file:
+
+```elixir
+alias Foo.Bar.Baz
+alias Foo.Bar.Boom
+```
+
+----
+
+### Refactoring: Consolidate aliases
 
 ```
 mix refactor consolidate_aliases [FILE]
 ```
 
+Sort and combine all aliases in a file:
 
-Many more to come...
+```elixir
+alias Foo.Bar.{Baz, Boom}
+```
+
+More to come...
+
+----
 
 ## Installation
 
@@ -41,6 +68,8 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/exacto_knife>.
+
+----
 
 ## Contributing
 
