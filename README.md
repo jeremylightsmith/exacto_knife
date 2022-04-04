@@ -79,6 +79,8 @@ be found at <https://hexdocs.pm/exacto_knife>.
 * Submit a PR
 * We all win!!!
 
-## Links
+### Links
 
-The [AST Ninja](https://ast.ninja/) is pretty helpful :)
+* [Elixir Syntax Reference](https://hexdocs.pm/elixir/syntax-reference.html#the-elixir-ast) has a good intro to the AST.
+* [Sourceror Docs](https://hexdocs.pm/sourceror/readme.html) are pretty great, understanding their zippers is essential.
+* [AST Ninja](https://ast.ninja/) will show you the ast for specific code.
