@@ -1,7 +1,9 @@
+0.1.5
+* rename knows about def/defp/test
+
 0.1.4
 * ability to run rename
 * better tests
-* rename knows about def/defp/test
 
 0.1.3
 * case insensitive sorting
