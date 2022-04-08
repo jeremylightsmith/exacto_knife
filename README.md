@@ -14,7 +14,7 @@ Refactoring tools for elixir!
 ### Refactoring: Sort aliases
 
 ```
-mix refactor sort_aliases [FILE]
+> mix refactor sort_aliases [FILE]
 ```
 
 Sort all aliases in a file:
@@ -31,7 +31,7 @@ alias Delta
 ### Refactoring: Expand aliases
 
 ```
-mix refactor expand_aliases [FILE]
+> mix refactor expand_aliases [FILE]
 ```
 
 Expand out all aliases in a file:
@@ -46,7 +46,7 @@ alias Foo.Bar.Boom
 ### Refactoring: Consolidate aliases
 
 ```
-mix refactor consolidate_aliases [FILE]
+> mix refactor consolidate_aliases [FILE]
 ```
 
 Sort and combine all aliases in a file:
@@ -58,6 +58,14 @@ alias Foo.Bar.{Baz, Boom}
 More to come...
 
 ----
+
+## Running against a codebase
+
+Find is your friend
+
+```
+> find lib -type f -name "*.ex*" | xargs -n1 mix refactor sort_aliases
+```
 
 ## Installation
 

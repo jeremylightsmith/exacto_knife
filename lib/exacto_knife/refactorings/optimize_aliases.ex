@@ -12,7 +12,8 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
 
     zipper = if has_qualified_tuple?(node), do: sort_alias_segments(zipper), else: zipper
 
-    if previous && alias?(previous) && node_to_string(node) < node_to_string(previous) do
+    if previous && alias?(previous) &&
+         String.downcase(first_alias(node)) < String.downcase(first_alias(previous)) do
       swap_with_previous_node(zipper)
     else
       zipper
@@ -111,7 +112,7 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
   def sort_alias_segments(zipper) do
     segments = zipper |> Z.node() |> get_alias_short_names_from()
 
-    if segments != Enum.sort(segments) do
+    if segments != Enum.sort_by(segments, &(&1 |> Atom.to_string() |> String.downcase())) do
       # this happens to do it
       add_to_qualified_tuple(zipper, [])
     else
@@ -126,7 +127,7 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
         new_aliases = Enum.map(names, &{:__aliases__, [], [&1]})
 
         (children ++ new_aliases)
-        |> Enum.sort_by(&elem(&1, 2))
+        |> Enum.sort_by(&(Node.get_in(&1, [2, 0]) |> Atom.to_string() |> String.downcase()))
       end)
 
     zipper
@@ -237,5 +238,13 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
 
         list ++ [last]
     end
+  end
+
+  def first_alias({:alias, _, [{:__aliases__, _, names} | _]}) do
+    names |> Enum.map(&Atom.to_string/1) |> Enum.join(".")
+  end
+
+  def first_alias({:alias, _, [{{:., _, [{:__aliases__, _, root}, _]}, _, [{:__aliases__, _, segment} | _rest]} | _]}) do
+    root ++ segment |> Enum.map(&Atom.to_string/1) |> Enum.join(".")
   end
 end

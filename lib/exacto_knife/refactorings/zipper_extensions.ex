@@ -18,6 +18,23 @@ defmodule ExactoKnife.Refactorings.ZipperExtensions do
     end
   end
 
+  def find_variable_at_position(zipper, cursor) do
+    zipper
+    |> Z.find(fn
+      ({marker, meta, nil}) when is_atom(marker) ->
+        line = Keyword.get(meta, :line)
+        col = Keyword.get(meta, :column)
+        len = marker |> Atom.to_string() |> String.length()
+        line == line(cursor) && col <= col(cursor) && col(cursor) <= col + len
+
+      _ ->
+        false
+    end)
+  end
+
+  defp line(cursor), do: elem(cursor, 0)
+  defp col(cursor), do: elem(cursor, 1)
+
   # returns node, or nil if there is no node/zipper
   def safe_node({n, _}), do: n
   def safe_node(nil), do: nil

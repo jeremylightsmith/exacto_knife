@@ -40,13 +40,22 @@ defmodule ExactoKnife.CLI do
   end
 
   defp update_file(path, fun) do
+    original_content = File.read!(path)
+
     new_content =
-      File.read!(path)
+      original_content
       |> Sourceror.parse_string!()
       |> fun.()
       |> Sourceror.to_string(formatter_opts_for(file: path))
 
-    File.write!(path, new_content)
+    new_content = "#{new_content}\n"
+
+    if new_content != original_content do
+      IO.puts("Saving changes to #{path}.")
+      File.write!(path, new_content)
+    else
+      IO.puts("No changes made to #{path}.")
+    end
   end
 
   defp refactor(name) do
