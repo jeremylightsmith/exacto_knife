@@ -1,3 +1,9 @@
+0.1.3
+* case insensitive sorting
+* don't always write file if there were no changes
+* do always write it with a trailing space
+* added a very, very simple / naive rename!
+
 0.1.2
 * use project formatting
 

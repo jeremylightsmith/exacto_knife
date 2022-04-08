@@ -74,7 +74,7 @@ Exacto Knife can be installed by adding `exacto_knife` to your list of dependenc
 ```elixir
 def deps do
   [
-    {:exacto_knife, "~> 0.1.2"}
+    {:exacto_knife, "~> 0.1.3"}
   ]
 end
 ```
