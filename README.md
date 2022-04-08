@@ -63,14 +63,14 @@ alias Foo.Bar.{Baz, Boom}
 > mix refactor rename [FILE] [LINE] [COLUMN]
 ```
 
-Renames a variable (currently this is a very, very naive implementation)
+Renames a variable (currently this is a fairly naive implementation - issues welcome!)
 
 
 More to come...
 
 ----
 
-## Running against a codebase
+## Running against an entire codebase
 
 Find is your friend
 

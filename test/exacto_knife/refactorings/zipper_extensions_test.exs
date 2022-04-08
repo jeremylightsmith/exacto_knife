@@ -5,7 +5,7 @@ defmodule ExactoKnife.Refactorings.ZipperExtensionsTest do
   alias ExactoKnife.Refactorings.ZipperExtensions, as: Ze
   alias Sourceror.Zipper, as: Z
 
-  describe "#find_back/2" do
+  describe "#find" do
     test "finds a thing" do
       z = Z.zip([1, [2, [3, 4]], 5, 6])
 
@@ -14,8 +14,28 @@ defmodule ExactoKnife.Refactorings.ZipperExtensionsTest do
       assert nil == z |> Z.find(&(&1 == 10))
       assert {3, %{l: nil, r: [4]}} = z |> Z.find(&(&1 == 3))
       assert {5, %{r: [6]}} = at_5
-      assert {2, %{r: [[3, 4]]}} = at_5 |> Ze.find_back(&(&1 == 2))
-      assert nil == at_5 |> Ze.find_back(&(&1 == 20))
+      assert {2, %{r: [[3, 4]]}} = at_5 |> Z.find(:prev, &(&1 == 2))
+      assert nil == at_5 |> Z.find(:prev, &(&1 == 20))
+    end
+  end
+
+  describe "#find_up/2" do
+    test "finds a thing" do
+      z = Z.zip([1, [2, [3, 4]], 5, 6])
+
+      at_3 = z |> Z.find(&(&1 == 3))
+
+      first_is? = fn i ->
+        fn
+          list when is_list(list) -> Enum.at(list, 0) == i
+          _ -> false
+        end
+      end
+
+      assert nil == at_3 |> Ze.find_up(first_is?.(4))
+      assert nil == at_3 |> Ze.find_up(first_is?.(5))
+      assert at_3 |> Ze.find_up(first_is?.(1))
+      assert at_3 |> Ze.find_up(first_is?.(2))
     end
   end
 

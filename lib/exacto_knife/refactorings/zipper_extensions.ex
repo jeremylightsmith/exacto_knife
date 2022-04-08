@@ -8,13 +8,13 @@ defmodule ExactoKnife.Refactorings.ZipperExtensions do
   defdelegate zip(quoted), to: Z
   defdelegate next(z), to: Z
 
-  def find_back(nil, _f), do: nil
+  def find_up(nil, _f), do: nil
 
-  def find_back({node, _} = zipper, f) do
+  def find_up({node, _} = zipper, f) do
     if f.(node) do
       zipper
     else
-      find_back(Z.prev(zipper), f)
+      find_up(Z.up(zipper), f)
     end
   end
 
@@ -38,4 +38,11 @@ defmodule ExactoKnife.Refactorings.ZipperExtensions do
   # returns node, or nil if there is no node/zipper
   def safe_node({n, _}), do: n
   def safe_node(nil), do: nil
+
+  def compact(zipper) do
+    Z.traverse(zipper, fn
+      {{marker, _, children}, _} = z -> Z.replace(z, {marker, [], children})
+      z -> z
+    end)
+  end
 end

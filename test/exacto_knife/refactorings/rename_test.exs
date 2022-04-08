@@ -2,6 +2,8 @@ defmodule ExactoKnife.Refactorings.RenameTest do
   @moduledoc false
   use ExactoKnife.TestCase, async: true
 
+  alias ExactoKnife.Refactorings.Rename
+
   import ExUnit.CaptureIO
 
   describe "rename/1" do
@@ -56,7 +58,6 @@ defmodule ExactoKnife.Refactorings.RenameTest do
              """ == refactor(:rename, source, [{8, 17}, "food"])
     end
 
-    @tag :skip
     test "should only change instances in a function" do
       source = ~S"""
       bar = 3
@@ -71,20 +72,6 @@ defmodule ExactoKnife.Refactorings.RenameTest do
         baz = bar * 2
       end
       """
-
-      assert ~S"""
-             bomb = 3
-
-             def foo() do
-               bar = 2
-               baz = bar * 2
-             end
-
-             defp food() do
-               bar = 2
-               baz = bar * 2
-             end
-             """ == refactor(:rename, source, [{1, 2}, "bomb"])
 
       assert ~S"""
              bar = 3
@@ -113,6 +100,39 @@ defmodule ExactoKnife.Refactorings.RenameTest do
                baz = bomb * 2
              end
              """ == refactor(:rename, source, [{9, 3}, "bomb"])
+    end
+
+    test "should not change instances in a named function when variable changes outside" do
+      source = ~S"""
+      bar = 3
+
+      def foo() do
+        bar = 2
+        baz = bar * 2
+      end
+      """
+
+      assert ~S"""
+             bomb = 3
+
+             def foo() do
+               bar = 2
+               baz = bar * 2
+             end
+             """ == refactor(:rename, source, [{1, 2}, "bomb"])
+    end
+  end
+
+  describe "#lexical_scope?/1" do
+    test "finds def, defp, test" do
+      assert Rename.lexical_scope?(build("def foo() do\nend"))
+      assert Rename.lexical_scope?(build("defp foo() do\nend"))
+      assert Rename.lexical_scope?(build("test \"bob\" do\nend"))
+    end
+
+    test "not other stuff" do
+      refute Rename.lexical_scope?(5)
+      refute Rename.lexical_scope?(build("foo"))
     end
   end
 end
