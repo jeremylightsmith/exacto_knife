@@ -55,6 +55,17 @@ Sort and combine all aliases in a file:
 alias Foo.Bar.{Baz, Boom}
 ```
 
+----
+
+### Refactoring: Rename Variable
+
+```
+> mix refactor rename [FILE] [LINE] [COLUMN]
+```
+
+Renames a variable (currently this is a very, very naive implementation)
+
+
 More to come...
 
 ----

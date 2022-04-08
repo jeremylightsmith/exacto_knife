@@ -16,8 +16,8 @@ defmodule ExactoKnife.CLI do
           e.g. exacto_knife consolidate_aliases lib/project/stuff.ex
         """)
 
-      {_, [name, path]} ->
-        update_file(path, refactor(name))
+      {_, [name, path, args]} ->
+        update_file(name, path, refactor(name, args))
     end
   end
 
@@ -29,9 +29,17 @@ defmodule ExactoKnife.CLI do
       )
 
     case cmd_opts do
-      {[help: true], _, _} -> :help
-      {opts, [_refactoring, _path] = args, []} -> {opts, args}
-      _ -> :help
+      {[help: true], _, _} ->
+        :help
+
+      {opts, ["rename", path, line, col, new_name], []} ->
+        {opts, ["rename", path, [{String.to_integer(line), String.to_integer(col)}, new_name]]}
+
+      {opts, [refactoring, path], []} ->
+        {opts, [refactoring, path, []]}
+
+      _ ->
+        :help
     end
   end
 
@@ -39,7 +47,7 @@ defmodule ExactoKnife.CLI do
     Format.formatter_for_file(file) |> elem(1)
   end
 
-  defp update_file(path, fun) do
+  defp update_file(refactor, path, fun) do
     original_content = File.read!(path)
 
     new_content =
@@ -51,14 +59,14 @@ defmodule ExactoKnife.CLI do
     new_content = "#{new_content}\n"
 
     if new_content != original_content do
-      IO.puts("Saving changes to #{path}.")
+      IO.puts("#{refactor}: saving changes to #{path}.")
       File.write!(path, new_content)
     else
-      IO.puts("No changes made to #{path}.")
+      IO.puts("#{refactor}: No changes made to #{path}.")
     end
   end
 
-  defp refactor(name) do
-    fn quoted -> apply(Refactorings, String.to_atom(name), [quoted]) end
+  defp refactor(name, args) do
+    fn quoted -> apply(Refactorings, String.to_atom(name), [quoted | args]) end
   end
 end
