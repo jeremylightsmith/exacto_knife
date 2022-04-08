@@ -1,3 +1,7 @@
+0.1.4
+* ability to run rename
+* better tests
+
 0.1.3
 * case insensitive sorting
 * don't always write file if there were no changes

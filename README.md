@@ -85,7 +85,7 @@ Exacto Knife can be installed by adding `exacto_knife` to your list of dependenc
 ```elixir
 def deps do
   [
-    {:exacto_knife, "~> 0.1.3"}
+    {:exacto_knife, "~> 0.1.4"}
   ]
 end
 ```
@@ -101,6 +101,13 @@ Docs can be found at <https://hexdocs.pm/exacto_knife>.
 * Make sure all tests pass
 * Submit a PR
 * We all win!!!
+
+### Releasing
+
+* bump the version in `mix.exs` and `README.md`
+* commit
+* make sure github ci passes
+* run `mix hex.publish`
 
 ### Links
 
