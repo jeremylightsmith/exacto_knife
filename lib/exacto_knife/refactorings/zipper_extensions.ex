@@ -21,7 +21,7 @@ defmodule ExactoKnife.Refactorings.ZipperExtensions do
   def find_variable_at_position(zipper, cursor) do
     zipper
     |> Z.find(fn
-      ({marker, meta, nil}) when is_atom(marker) ->
+      {marker, meta, nil} when is_atom(marker) ->
         line = Keyword.get(meta, :line)
         col = Keyword.get(meta, :column)
         len = marker |> Atom.to_string() |> String.length()

@@ -241,10 +241,13 @@ defmodule ExactoKnife.Refactorings.OptimizeAliases do
   end
 
   def first_alias({:alias, _, [{:__aliases__, _, names} | _]}) do
-    names |> Enum.map(&Atom.to_string/1) |> Enum.join(".")
+    names |> Enum.map_join(".", &Atom.to_string/1)
   end
 
-  def first_alias({:alias, _, [{{:., _, [{:__aliases__, _, root}, _]}, _, [{:__aliases__, _, segment} | _rest]} | _]}) do
-    root ++ segment |> Enum.map(&Atom.to_string/1) |> Enum.join(".")
+  def first_alias(
+        {:alias, _,
+         [{{:., _, [{:__aliases__, _, root}, _]}, _, [{:__aliases__, _, segment} | _rest]} | _]}
+      ) do
+    (root ++ segment) |> Enum.map_join(".", &Atom.to_string/1)
   end
 end
